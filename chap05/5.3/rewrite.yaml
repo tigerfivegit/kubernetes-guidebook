@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: rewrite
+  namespace: default
+spec:
+  rules:
+  - host: nginx.test.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-v2
+          servicePort: 80
+        path: /rewrite/?(.*)

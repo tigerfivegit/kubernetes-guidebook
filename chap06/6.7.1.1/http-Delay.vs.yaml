@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: nginx
+spec:
+  hosts:
+  - "nginx.xxx.net"
+  gateways:
+  - nginx-gateway
+#  - mesh
+  http:
+  - match:
+    - uri:
+        exact: /
+      headers:
+        end-user:
+          exact: jason
+    route:
+    - destination:
+        host: nginx-svc # name of app service 
+        subset: v2
+  - route:
+    - destination:
+        host: nginx-svc # name of app service 
+        subset: v1
+        #port:
+        #  number: 80
+    fault:
+      delay:
+        fixedDelay: 7s
+        percent: 100

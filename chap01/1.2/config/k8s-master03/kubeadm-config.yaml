@@ -1,0 +1,19 @@
+apiVersion: kubeadm.k8s.io/v1beta1
+kind: ClusterConfiguration
+kubernetesVersion: v1.13.2
+imageRepository: registry.cn-hangzhou.aliyuncs.com/google_containers
+apiServer:
+  certSANs:
+  - 192.168.20.10
+controlPlaneEndpoint: "192.168.20.10:16443"
+networking:
+  # This CIDR is a Calico default. Substitute or remove for your CNI provider.
+  podSubnet: "172.168.0.0/16"
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+ipvs:
+  minSyncPeriod: 1s
+  scheduler: rr
+  syncPeriod: 10s
+mode: ipvs

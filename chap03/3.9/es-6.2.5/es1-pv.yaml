@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-es-1
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: "es-storage-class"
+  nfs:
+    # real share directory
+    path: /k8s-data/es/es1
+    # nfs real ip
+    server: 10.120.116.240

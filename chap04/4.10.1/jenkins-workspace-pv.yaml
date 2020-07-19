@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-workspace
+spec:
+  capacity:
+    storage: 200Gi
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: "jenkins-workspace"
+  nfs:
+    # real share directory
+    path: /data/k8s/jenkins/
+    # nfs real ip
+    server: 192.168.2.2

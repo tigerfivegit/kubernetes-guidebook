@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/permanent-redirect: https://www.baidu.com
+    # nginx.ingress.kubernetes.io/permanent-redirect-code: '308'
+    nginx.ingress.kubernetes.io/limit-connections: '1'
+  name: redirect
+  namespace: default
+spec:
+  rules:
+  - host: nginx.redirect.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-v2
+          servicePort: 80

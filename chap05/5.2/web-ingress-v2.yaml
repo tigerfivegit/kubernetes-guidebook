@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - host: nginx.test.com
+    http:
+      paths:
+      - path: /foo/.*
+        backend:
+          serviceName: nginx-v2
+          servicePort: 80
+      - path: /
+        backend:
+          serviceName: nginx
+          servicePort: 80

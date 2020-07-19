@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/server-snippet: |
+        set $agentflag 0;
+        if ($http_user_agent ~* "iPhone" ){
+          set $agentflag 1;
+        }
+        if ( $agentflag = 1 ) {
+          return 301 http://nginx.test.com;
+        }
+  name: snippet
+  namespace: default
+spec:
+  rules:
+  - host: nginx.snippet.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-v2
+          servicePort: 80

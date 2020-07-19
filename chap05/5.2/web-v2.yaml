@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-v2
+spec:
+  template:
+    metadata:
+      labels:
+        app: nginx-v2
+    spec:
+      containers:
+      - image: dotbalo/nginx:url-test
+        name: nginx-v2
+        ports:
+        - containerPort: 80

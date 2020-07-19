@@ -1,0 +1,18 @@
+cat quotaspecbinding.yaml
+kind: QuotaSpecBinding
+metadata:
+  name: request-count
+  namespace: istio-system
+spec:
+  quotaSpecs:
+  - name: request-count
+    namespace: istio-system
+  services:
+  - name: ratings
+    namespace: istio-test
+  - name: reviews
+    namespace: istio-test
+  - name: details
+    namespace: istio-test
+  - name: productpage
+    namespace: istio-test

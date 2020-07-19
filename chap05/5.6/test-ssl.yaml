@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    # Enable client certificate authentication
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "1"
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "false"
+  name: ssl
+  namespace: default
+spec:
+  rules:
+  - host: www.xxx.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-v2
+          servicePort: 80
+  tls:
+  - hosts:
+    - www.xxx.com
+    secretName: ca-secret
